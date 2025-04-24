@@ -48,9 +48,18 @@ class SettingsPage extends StatelessWidget {
                             style: Theme.of(context).textTheme.titleLarge,
                           ),
                           const SizedBox(height: 20),
-                          Text(
-                            'Work Duration',
-                            style: Theme.of(context).textTheme.titleMedium,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Work Duration',
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ),
+                              Text(
+                                '(in minutes)',
+                                style: Theme.of(context).textTheme.bodySmall,
+                              ),
+                            ],
                           ),
                           const SizedBox(height: 10),
                           TextFormField(
@@ -66,9 +75,18 @@ class SettingsPage extends StatelessWidget {
                             validator: validateInputeDurationValue,
                           ),
                           const SizedBox(height: 20),
-                          Text(
-                            'Small Break Duration',
-                            style: Theme.of(context).textTheme.titleMedium,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Small Break Duration',
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ),
+                              Text(
+                                '(in minutes)',
+                                style: Theme.of(context).textTheme.bodySmall,
+                              ),
+                            ],
                           ),
                           const SizedBox(height: 10),
                           TextFormField(
@@ -84,9 +102,18 @@ class SettingsPage extends StatelessWidget {
                             validator: validateInputeDurationValue,
                           ),
                           const SizedBox(height: 20),
-                          Text(
-                            'Long Break Duration',
-                            style: Theme.of(context).textTheme.titleMedium,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Long Break Duration',
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ),
+                              Text(
+                                '(in minutes)',
+                                style: Theme.of(context).textTheme.bodySmall,
+                              ),
+                            ],
                           ),
                           const SizedBox(height: 10),
                           TextFormField(
