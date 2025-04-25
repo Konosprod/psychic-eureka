@@ -36,7 +36,7 @@ jobs:
       run: |
            cd ./timotime/
            flutter build linux --release
-           zip -r "timotime-linux-${{ github.ref_name }}.zip" build/linux/x64/release/bundle/Timotime
+           zip -r "timotime-linux-${{ github.ref_name }}.zip" build/linux/x64/release/bundle
            
     - name: Upload to release
       uses: AButler/upload-release-assets@v3.0
