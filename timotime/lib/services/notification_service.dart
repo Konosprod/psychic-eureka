@@ -13,7 +13,7 @@ class NotificationService {
       windows: WindowsInitializationSettings(
           appName: "Timotime",
           appUserModelId: "Konosprod.Timotime",
-          guid: "Timotime"),
+          guid: "700ee6b5-ae35-465b-93c5-0dc40a22789c"),
     );
 
     print("Initialisation des notifications");
