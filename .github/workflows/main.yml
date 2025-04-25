@@ -86,8 +86,8 @@ jobs:
         with:
           tag_name: ${{ github.ref_name }}
           files: |
-            artifacts/windows.zip
-            artifacts/linux.zip
-            artifacts/macos.zip
+            artifacts/windows-${{ github.ref_name }}.zip
+            artifacts/linux-${{ github.ref_name }}.zip
+            artifacts/macos-${{ github.ref_name }}.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
