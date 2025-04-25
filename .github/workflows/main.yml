@@ -23,7 +23,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: windows-build
-          path: ./timotime/build/windows/runner/Release/
+          path: .\timotime\build\windows\x64\runner\Release\
 
   build-linux:
     runs-on: ubuntu-latest
