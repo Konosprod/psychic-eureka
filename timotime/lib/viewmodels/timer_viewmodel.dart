@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:timotime/services/notification_service.dart';
 import 'package:timotime/viewmodels/settings_viewmodel.dart';
 
 import '../models/timer_model.dart';
@@ -15,9 +16,13 @@ class TimerViewmodel extends ChangeNotifier {
   TimerModel _timer = TimerModel(seconds: 0);
   Timer? _ticker;
   SettingsViewModel _settingsViewModel;
+  NotificationService _notificationService;
 
-  TimerViewmodel({required SettingsViewModel settingsViewModel})
-      : _settingsViewModel = settingsViewModel;
+  TimerViewmodel(
+      {required SettingsViewModel settingsViewModel,
+      required NotificationService notificationService})
+      : _settingsViewModel = settingsViewModel,
+        _notificationService = notificationService;
 
   static const Duration oneSecond = Duration(seconds: 1);
   Duration get shortBreakDuration {
@@ -95,6 +100,8 @@ class TimerViewmodel extends ChangeNotifier {
       case TimerStatus.stopped:
         _timer = TimerModel(
             seconds: _steps[step].$2.inSeconds, status: TimerStatus.running);
+        _notificationService.showNotification(
+            'Time to ${state == PomodoroState.work ? "work" : "take a break"}');
         _ticker = Timer.periodic(oneSecond, (timer) {
           _timer.seconds--;
 

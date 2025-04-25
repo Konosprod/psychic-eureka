@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:timotime/services/notification_service.dart';
 import 'package:timotime/services/settings_service.dart';
 import 'package:timotime/viewmodels/session_viewmodel.dart';
 import 'package:timotime/viewmodels/settings_viewmodel.dart';
@@ -24,18 +25,20 @@ void main() async {
   // ✅ Préparer les settings AVANT runApp
   final settingsService = SettingsService();
   final settingsViewModel = SettingsViewModel(settingsService);
+  final notificationService = NotificationService();
+  await notificationService.initialize();
   await settingsViewModel.load(); // <-- ici tu attends proprement
 
   runApp(
     MultiProvider(
       providers: [
+        Provider(create: (_) => notificationService),
         ChangeNotifierProvider(create: (_) => settingsViewModel),
-        // ChangeNotifierProvider(
-        //     create: (_) =>
-        //         TimerViewmodel(settingsViewModel: settingsViewModel)),
         ChangeNotifierProvider(create: (_) => SessionViewmodel()),
         ChangeNotifierProxyProvider<SettingsViewModel, TimerViewmodel>(
-          create: (_) => TimerViewmodel(settingsViewModel: settingsViewModel),
+          create: (_) => TimerViewmodel(
+              settingsViewModel: settingsViewModel,
+              notificationService: notificationService),
           update: (_, settingsViewModel, timerViewmodel) =>
               timerViewmodel!..initSteps(),
         ),

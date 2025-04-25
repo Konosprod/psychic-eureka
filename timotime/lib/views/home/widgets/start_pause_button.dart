@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:timotime/services/notification_service.dart';
 import 'package:timotime/viewmodels/timer_viewmodel.dart';
 
 class StartPauseButton extends StatelessWidget {
@@ -10,14 +11,17 @@ class StartPauseButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final timerVM = context.watch<TimerViewmodel>();
+    final NotificationService notificationService =
+        context.read<NotificationService>();
 
     return FittedBox(
       fit: BoxFit.scaleDown,
-      child: _buildButton(timerVM, context),
+      child: _buildButton(timerVM, context, notificationService),
     );
   }
 
-  Widget _buildButton(TimerViewmodel timerVM, context) {
+  Widget _buildButton(TimerViewmodel timerVM, context,
+      NotificationService notificationService) {
     var label = timerVM.isRunning ? "Pause" : "Start";
     var icon = timerVM.isRunning ? Icons.pause : Icons.play_arrow;
     var color = timerVM.isRunning
