@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:timotime/viewmodels/settings_viewmodel.dart';
 
 import '../models/timer_model.dart';
 
@@ -13,23 +14,49 @@ enum PomodoroState {
 class TimerViewmodel extends ChangeNotifier {
   TimerModel _timer = TimerModel(seconds: 0);
   Timer? _ticker;
+  SettingsViewModel _settingsViewModel;
 
-  static const oneSecond = Duration(seconds: 1);
-  static const shortBreakDuration = Duration(seconds: 5);
-  static const longBreakDuration = Duration(seconds: 15);
-  static const workTimeDuration = Duration(seconds: 10);
+  TimerViewmodel({required SettingsViewModel settingsViewModel})
+      : _settingsViewModel = settingsViewModel;
+
+  static const Duration oneSecond = Duration(seconds: 1);
+  Duration get shortBreakDuration {
+    return _settingsViewModel.shortBreakDuration;
+  }
+
+  Duration get longBreakDuration {
+    return _settingsViewModel.longBreakDuration;
+  }
+
+  Duration get workTimeDuration {
+    return _settingsViewModel.workDuration;
+  }
+
   int step = 0;
   int workStep = 0;
-  static const _steps = [
-    (PomodoroState.work, workTimeDuration),
-    (PomodoroState.shortBreak, shortBreakDuration),
-    (PomodoroState.work, workTimeDuration),
-    (PomodoroState.shortBreak, shortBreakDuration),
-    (PomodoroState.work, workTimeDuration),
-    (PomodoroState.shortBreak, shortBreakDuration),
-    (PomodoroState.work, workTimeDuration),
-    (PomodoroState.longBreak, shortBreakDuration),
+  List<(PomodoroState, Duration)> _steps = [
+    (PomodoroState.work, Duration(minutes: 25)),
+    (PomodoroState.shortBreak, Duration(minutes: 5)),
+    (PomodoroState.work, Duration(minutes: 25)),
+    (PomodoroState.shortBreak, Duration(minutes: 5)),
+    (PomodoroState.work, Duration(minutes: 25)),
+    (PomodoroState.shortBreak, Duration(minutes: 5)),
+    (PomodoroState.work, Duration(minutes: 25)),
+    (PomodoroState.longBreak, Duration(minutes: 25)),
   ];
+
+  void initSteps() {
+    _steps = [
+      (PomodoroState.work, _settingsViewModel.workDuration),
+      (PomodoroState.shortBreak, _settingsViewModel.shortBreakDuration),
+      (PomodoroState.work, _settingsViewModel.workDuration),
+      (PomodoroState.shortBreak, _settingsViewModel.shortBreakDuration),
+      (PomodoroState.work, _settingsViewModel.workDuration),
+      (PomodoroState.shortBreak, _settingsViewModel.shortBreakDuration),
+      (PomodoroState.work, _settingsViewModel.workDuration),
+      (PomodoroState.longBreak, _settingsViewModel.longBreakDuration),
+    ];
+  }
 
   String get formattedTime {
     final minutes = _timer.minutes;
@@ -53,6 +80,8 @@ class TimerViewmodel extends ChangeNotifier {
   int get maxSteps => _steps.length;
 
   void startTime() {
+    initSteps();
+
     switch (_timer.status) {
       case TimerStatus.running:
         return;
@@ -64,12 +93,13 @@ class TimerViewmodel extends ChangeNotifier {
         _timer.status = TimerStatus.running;
         break;
       case TimerStatus.stopped:
-        _timer = TimerModel(seconds: 0, status: TimerStatus.running);
+        _timer = TimerModel(
+            seconds: _steps[step].$2.inSeconds, status: TimerStatus.running);
         _ticker = Timer.periodic(oneSecond, (timer) {
-          _timer.seconds++;
+          _timer.seconds--;
 
           // Start next Timer
-          if (_timer.seconds >= _steps[step].$2.inSeconds) {
+          if (_timer.seconds <= 0) {
             _ticker?.cancel();
             _ticker = null;
             _timer = TimerModel(seconds: 0, status: TimerStatus.stopped);

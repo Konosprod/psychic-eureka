@@ -161,51 +161,6 @@ class SettingsPage extends StatelessWidget {
                                   Theme.of(context).colorScheme.primary,
                             ),
                           ),
-                          Divider(
-                            height: 40,
-                          ),
-                          Text(
-                            'Data',
-                            style: Theme.of(context).textTheme.titleLarge,
-                          ),
-                          const SizedBox(height: 20),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              ElevatedButton.icon(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor:
-                                      Theme.of(context).colorScheme.secondary,
-                                ),
-                                onPressed: () {},
-                                label: Text('Delete Data',
-                                    style: TextStyle(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .onSecondary)),
-                                icon: Icon(Icons.delete,
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onSecondary),
-                              ),
-                              ElevatedButton.icon(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor:
-                                      Theme.of(context).colorScheme.tertiary,
-                                ),
-                                onPressed: () {},
-                                label: Text('Export Data',
-                                    style: TextStyle(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .onTertiary)),
-                                icon: Icon(Icons.download,
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onTertiary),
-                              ),
-                            ],
-                          ),
                         ],
                       ),
                     ),

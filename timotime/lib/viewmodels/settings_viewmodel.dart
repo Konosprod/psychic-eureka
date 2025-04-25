@@ -9,7 +9,7 @@ class SettingsViewModel extends ChangeNotifier {
   SettingsViewModel(this._settingsService);
 
   SettingsModel get settingsModel => _settingsModel;
-  Duration get workDuration => Duration(minutes: _settingsModel.longBreakTime);
+  Duration get workDuration => Duration(minutes: _settingsModel.workTime);
   Duration get shortBreakDuration =>
       Duration(minutes: _settingsModel.shortBreakTime);
   Duration get longBreakDuration =>
