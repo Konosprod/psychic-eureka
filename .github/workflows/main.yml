@@ -34,6 +34,7 @@ jobs:
 
     - name: Build Linux
       run: |
+           cd ./timotime/
            flutter build linux --release
            zip -r "timotime-linux-${{ github.ref_name }}.zip" build/linux/x64/release/bundle/Timotime
            
