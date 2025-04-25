@@ -3,7 +3,7 @@ description: A Flutter project for a simple pomodoro application.
 
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
-version: 0.0.1+1
+version: 1.0.0
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
@@ -16,7 +16,7 @@ dependencies:
   provider: ^6.0.0
   window_manager: ^0.4.2
   path_provider: ^2.1.5
-  flutter_local_notifications: ^19.1.0
+  flutter_local_notifications: ^18.0.1
 
 dev_dependencies:
   flutter_test:
