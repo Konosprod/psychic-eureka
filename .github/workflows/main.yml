@@ -42,4 +42,5 @@ jobs:
       uses: AButler/upload-release-assets@v3.0
       with:
         files: "./timotime/timotime-linux-${{ github.ref_name }}.zip"
+        release-tag: ${{ github.ref_name }}
         repo-token: ${{ secrets.GITHUB_TOKEN }}
